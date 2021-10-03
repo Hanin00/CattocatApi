@@ -15,18 +15,16 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=_odt#^z7#d9rc89n)azu!3pgc1+nxm@y6yff$$u+s-m2=x0eg'
+SECRET_KEY = 'django-insecure-yh@ex_$($d-=nn0m68lvjfb8+(_0b*c2v9%!5bss!hyo&#_!8s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -37,6 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cats.apps.CatsConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -69,17 +69,26 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # django db를 mysql로 사용하겠음
+        'ENGINE': 'django.db.backends.mysql',
+        # DB 이름 지어주기
+        'NAME': 'Cats',
+        # 사용자 유저 계정 생성 후 입력하기
+        'USER': 'admin',
+        # 사용자 비밀번호 생성 후 입력하기
+        'PASSWORD': 'admin',
+        # default host인 localhost
+        'HOST': 'localhost',
+        # MySQL default 포트 번호
+        'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -99,20 +108,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

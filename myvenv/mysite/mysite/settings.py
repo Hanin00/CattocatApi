@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cats.apps.CatsConfig',
+    'accounts',
     'rest_framework',
 ]
 

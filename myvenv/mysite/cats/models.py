@@ -56,7 +56,7 @@ class Cuser(models.Model):
 class Pair(models.Model):
     pair_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(Cuser, models.DO_NOTHING)
-    cat = models.ForeignKey(Cat, models.DO_NOTHING, blank=True, null=True)
+    cat = models.ForeignKey(Cat, models.DO_NOTHING)
     is_active = models.IntegerField()
     create_at = models.DateTimeField(blank=True, null=False)
     updated_at = models.DateTimeField(blank=True, null=True)
@@ -65,6 +65,7 @@ class Pair(models.Model):
     class Meta:
         managed = False
         db_table = 'pair'
+
 
 
 class Plike(models.Model):

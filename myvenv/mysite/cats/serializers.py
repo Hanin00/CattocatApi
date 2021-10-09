@@ -1,12 +1,18 @@
 from rest_framework import serializers
 from .models import Cat, Cuser, Pair, Plike, Post, Reply
 
+
+
+
 class CatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cat
         fields = '__all__'
 
 
+
+
+#user api
 class CatModifySerializer(serializers.ModelSerializer):
     class Meta:
         model = Cat
@@ -15,7 +21,8 @@ class CatModifySerializer(serializers.ModelSerializer):
     cat_name = serializers.CharField(max_length=45)
     cat_locate = serializers.CharField(max_length=80)
 
-#Cuser - User 정보 변경
+
+# Cuser - User 정보 변경
 class CuserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cuser
@@ -42,6 +49,7 @@ class PairSerializer(serializers.ModelSerializer):
         model = Pair
         fields = '__all__'
 
+
 class PairModifySerializer(serializers.ModelSerializer):
     class Meta:
         model = Pair
@@ -49,3 +57,4 @@ class PairModifySerializer(serializers.ModelSerializer):
         user = serializers.IntegerField()
         cat = serializers.IntegerField()
         is_active = serializers.IntegerField()
+

@@ -14,7 +14,10 @@ urlpatterns=[
     path('totalpair/', views.pair_list),
     path('pairdetail/<int:pk>/', views.pair_detail),
 
-    path('pair_modify_list/', views.pair_list),
-    path('pair_modify_detail/<int:pk>/', views.pair_detail),
+    path('mtotalcat/', views.cat_mlist),
+    path('mcatdetail/<int:pk>/', views.cat_detail),
+
+    path('mtotalpair/', views.mpair_list),
+    path('mpairdetail/<int:pk>/', views.mpair_detail),
 
 ]

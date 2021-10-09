@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views import View
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -7,6 +8,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from .serializers import *
 from .models import Cat, Cuser, Pair, Plike, Post, Reply, Pair
+from rest_framework import generics
 
 
 def cat_view(request):
@@ -30,6 +32,25 @@ cat_detail = CatViewSet.as_view({
     'patch': 'partial_update',
     'delete': 'destroy',
 })
+
+
+class CatModifyViewSet(ModelViewSet):
+    queryset = Cat.objects.all()
+    serializer_class = CatModifySerializer
+
+
+cat_mlist = CatModifyViewSet.as_view({
+    'get': 'list',
+    'post': 'create',
+})
+
+cat_detail = CatModifyViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy',
+})
+
 
 #  Cuser - User 상태 변경
 def Cuser_view(request):
@@ -78,20 +99,22 @@ pair_detail = PairViewSet.as_view({
 })
 
 
-
 class PairModifyViewSet(ModelViewSet):
     queryset = Pair.objects.all()
     serializer_class = PairModifySerializer
 
 
-pair_modify_list = PairModifyViewSet.as_view({
+mpair_list = PairModifyViewSet.as_view({
     'get': 'list',
     'post': 'create',
 })
 
-pair_modify_detail = PairModifyViewSet.as_view({
+
+#put으로 수정작업
+mpair_detail = PairModifyViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
     'patch': 'partial_update',
     'delete': 'destroy',
 })
+

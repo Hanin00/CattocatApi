@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 
 
@@ -15,10 +17,10 @@ class Cat(models.Model):
     cat_similar = models.IntegerField(blank=True, null=True)
     cat_prof_img = models.CharField(max_length=200, blank=True, null=True)
     cat_image = models.CharField(max_length=200, blank=True, null=True)
-    cat_xlocation = models.BigIntegerField(blank=True, null=True)
-    cat_ylocation = models.BigIntegerField(blank=True, null=True)
+    cat_xlocation = models.CharField(max_length=200, blank=True, null=True)
+    cat_ylocation = models.CharField(max_length=200, blank=True, null=True)
     is_active = models.IntegerField()
-    create_at = models.DateTimeField(blank=True, null=False)
+    create_at = models.DateTimeField(default=datetime.datetime.now())
     updated_at = models.DateTimeField(blank=True, null=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
@@ -43,7 +45,7 @@ class Cuser(models.Model):
     is_superuser = models.IntegerField()
     is_staff = models.IntegerField()
     popup = models.IntegerField()
-    create_at = models.DateTimeField(blank=True, null=False)
+    create_at = models.DateTimeField(default=datetime.datetime.now())
     updated_at = models.DateTimeField(blank=True, null=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
@@ -58,7 +60,7 @@ class Pair(models.Model):
     user = models.ForeignKey(Cuser, models.DO_NOTHING)
     cat = models.ForeignKey(Cat, models.DO_NOTHING)
     is_active = models.IntegerField()
-    create_at = models.DateTimeField(blank=True, null=False)
+    create_at = models.DateTimeField(default=datetime.datetime.now())
     updated_at = models.DateTimeField(blank=True, null=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
@@ -73,7 +75,7 @@ class Plike(models.Model):
     user = models.ForeignKey(Cuser, models.DO_NOTHING)
     post = models.ForeignKey('Post', models.DO_NOTHING)
     is_active = models.IntegerField()
-    create_at = models.DateTimeField(blank=True, null=False)
+    create_at = models.DateTimeField(default=datetime.datetime.now())
     updated_at = models.DateTimeField(blank=True, null=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
@@ -87,8 +89,9 @@ class Post(models.Model):
     user = models.ForeignKey(Cuser, models.DO_NOTHING)
     title = models.CharField(max_length=45)
     content = models.TextField()
+    image = models.TextField(blank=True, null=False)
     is_active = models.IntegerField()
-    create_at = models.DateTimeField(blank=True, null=False)
+    create_at = models.DateTimeField(default=datetime.datetime.now())
     updated_at = models.DateTimeField(blank=True, null=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
@@ -102,8 +105,8 @@ class Reply(models.Model):
     user = models.ForeignKey(Cuser, models.DO_NOTHING)
     post = models.ForeignKey(Post, models.DO_NOTHING)
     content = models.TextField()
-    is_active = models.IntegerField()
-    create_at = models.DateTimeField(blank=True, null=False)
+    is_active = models.IntegerField(default=1)
+    create_at = models.DateTimeField(default=datetime.datetime.now())
     updated_at = models.DateTimeField(blank=True, null=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 

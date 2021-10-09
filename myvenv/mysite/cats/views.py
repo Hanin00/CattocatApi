@@ -11,15 +11,10 @@ from .models import Cat, Cuser, Pair, Plike, Post, Reply, Pair
 from rest_framework import generics
 
 
-def cat_view(request):
-    cats = Cat.objects.all()
-    return render(request, 'index.html', {'cats': cats})
-
 
 class CatViewSet(ModelViewSet):
     queryset = Cat.objects.all()
     serializer_class = CatSerializer
-
 
 cat_list = CatViewSet.as_view({
     'get': 'list',
@@ -34,34 +29,15 @@ cat_detail = CatViewSet.as_view({
 })
 
 
-class CatModifyViewSet(ModelViewSet):
-    queryset = Cat.objects.all()
-    serializer_class = CatModifySerializer
-
-
-cat_mlist = CatModifyViewSet.as_view({
-    'get': 'list',
-    'post': 'create',
-})
-
-cat_detail = CatModifyViewSet.as_view({
-    'get': 'retrieve',
-    'put': 'update',
-    'patch': 'partial_update',
-    'delete': 'destroy',
-})
-
 
 #  Cuser - User 상태 변경
 def Cuser_view(request):
     cuser = Cuser.objects.all()
     return render(request, 'index.html', {'cuser': cuser})
 
-
 class CuserViewSet(ModelViewSet):
     queryset = Cuser.objects.all()
-    serializer_class = CuserModifySerializer
-
+    serializer_class = CuserSerializer
 
 cuser_list = CuserViewSet.as_view({
     'get': 'list',
@@ -76,45 +52,124 @@ cuser_detail = CuserViewSet.as_view({
 
 
 #  Pair - Pair 상태 변경
-def Pair_view(request):
-    pair = Pair.objects.all()
-    return render(request, 'index.html', {'pair': pair})
-
-
 class PairViewSet(ModelViewSet):
     queryset = Pair.objects.all()
     serializer_class = PairSerializer
-
 
 pair_list = PairViewSet.as_view({
     'get': 'list',
     'post': 'create',
 })
 
+# put으로 수정작업
 pair_detail = PairViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
-    'patch': 'partial_update',
-    'delete': 'destroy',
 })
 
+#  Post - post 상태 변경
+class PostTotalViewSet(ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PosttotalSerializer
 
-class PairModifyViewSet(ModelViewSet):
-    queryset = Pair.objects.all()
-    serializer_class = PairModifySerializer
-
-
-mpair_list = PairModifyViewSet.as_view({
+post_tlist = PostTotalViewSet.as_view({
     'get': 'list',
     'post': 'create',
 })
 
-
-#put으로 수정작업
-mpair_detail = PairModifyViewSet.as_view({
+# put으로 수정작업
+post_tdetail = PostTotalViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
-    'patch': 'partial_update',
-    'delete': 'destroy',
 })
 
+
+#  Post - post 상태 변경
+class PostViewSet(ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+post_list = PostViewSet.as_view({
+    'get': 'list',
+    'post': 'create',
+})
+
+# put으로 수정작업
+post_detail = PostViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+})
+
+
+
+#todo counting
+#  Plike - plike 좋아요
+class PlikeViewSet(ModelViewSet):
+    queryset = Plike.objects.all()
+    serializer_class = PlikeSerializer
+
+plike_list = PlikeViewSet.as_view({
+    'get': 'list',
+    'post': 'create',
+})
+
+# put으로 수정작업
+plike_detail = PlikeViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+})
+
+
+#  Reply - Reply
+class ReplyViewSet(ModelViewSet):
+    queryset = Reply.objects.all()
+    serializer_class = ReplySerializer
+
+reply_list = ReplyViewSet.as_view({
+    'get': 'list',
+    'post': 'create',
+})
+
+# put으로 수정작업
+reply_detail = ReplyViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+})
+
+
+
+
+
+
+'''
+from django.db import connection
+
+
+def PostListView(request):
+    # books = Book.objects.all()
+    try:
+        cursor = connection.cursor()
+
+        strSql = "select Post.post_id, Post.user_id,Post.title, Post.content, Post.create_at as '게시글 작성일', Reply.create_at as '댓글 작성일' from Post join Reply on Post.post_id = Reply.post_id ;"
+        result = cursor.execute(strSql)
+        posts = cursor.fetchall()
+
+        connection.commit()
+        connection.close()
+
+        posts = []
+        for post in posts:
+            row = {'post_id': data[0],
+                   'user_id': data[1],
+                   'title': data[1],
+                   'content': data[2]},
+
+
+            books.append(row)
+
+    except:
+        connection.rollback()
+        print("Failed selecting in PostListView")
+
+
+    return render(request, 'post_list.html', {'posts': posts})'''

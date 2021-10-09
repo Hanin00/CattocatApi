@@ -5,8 +5,8 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 from django.http.response import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from .serializers import CatSerializer, CatModifySerializer
-from .models import Cat, Catuser, Userfollowcat
+from .serializers import *
+from .models import Cat, Cuser, Pair, Plike, Post, Reply, Pair
 
 
 def cat_view(request):
@@ -25,6 +25,71 @@ cat_list = CatViewSet.as_view({
 })
 
 cat_detail = CatViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy',
+})
+
+#  Cuser - User 상태 변경
+def Cuser_view(request):
+    cuser = Cuser.objects.all()
+    return render(request, 'index.html', {'cuser': cuser})
+
+
+class CuserViewSet(ModelViewSet):
+    queryset = Cuser.objects.all()
+    serializer_class = CuserModifySerializer
+
+
+cuser_list = CuserViewSet.as_view({
+    'get': 'list',
+    'post': 'create',
+})
+cuser_detail = CuserViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy',
+})
+
+
+#  Pair - Pair 상태 변경
+def Pair_view(request):
+    pair = Pair.objects.all()
+    return render(request, 'index.html', {'pair': pair})
+
+
+class PairViewSet(ModelViewSet):
+    queryset = Pair.objects.all()
+    serializer_class = PairSerializer
+
+
+pair_list = PairViewSet.as_view({
+    'get': 'list',
+    'post': 'create',
+})
+
+pair_detail = PairViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy',
+})
+
+
+
+class PairModifyViewSet(ModelViewSet):
+    queryset = Pair.objects.all()
+    serializer_class = PairModifySerializer
+
+
+pair_modify_list = PairModifyViewSet.as_view({
+    'get': 'list',
+    'post': 'create',
+})
+
+pair_modify_detail = PairModifyViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
     'patch': 'partial_update',

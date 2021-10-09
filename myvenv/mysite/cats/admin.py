@@ -4,5 +4,8 @@ from .models import *
 
 # Register your models here.
 admin.site.register(Cat)
-admin.site.register(Catuser)
-admin.site.register(Userfollowcat)
+admin.site.register(Cuser)
+admin.site.register(Pair)
+admin.site.register(Plike)
+admin.site.register(Post)
+admin.site.register(Reply)

@@ -9,10 +9,6 @@ urlpatterns=[
     path('totalcat/', views.cat_list),
     path('catdetail/<int:pk>/',views.cat_detail),
 
-    # user
-    path('totaluser/', views.cuser_list),
-    path('muserdetail/<int:pk>/', views.cuser_detail),
-
     # pair
     path('totalpair/', views.pair_list),
     path('pairdetail/<int:pk>/', views.pair_detail),
@@ -36,3 +32,8 @@ urlpatterns=[
 
 
 ]
+
+
+'''    # user
+    path('totaluser/', views.cuser_list),
+    path('muserdetail/<int:pk>/', views.cuser_detail),'''

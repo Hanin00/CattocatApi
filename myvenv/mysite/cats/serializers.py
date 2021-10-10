@@ -5,6 +5,28 @@ from rest_framework.settings import api_settings
 import time
 
 
+'''
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    name = models.CharField(max_length=30)
+    bio = models.TextField(blank=True)
+
+def on_post_save_for_user(sender, **kwargs):
+    if kwargs['created']:
+        user = kwargs['instance']
+
+        send_mail(
+            '가입환영이메일',
+            'Travel 블로그에 가입을 환영합니다!',
+            'nldaseul@gmail.com',
+            [user.email],
+            fail_silently=False,
+        )
+
+post_save.connect(on_post_save_for_user, sender=settings.AUTH_USER_MODEL)
+
+'''
+
 
 class CattotalSerializer(serializers.ModelSerializer):
     class Meta:

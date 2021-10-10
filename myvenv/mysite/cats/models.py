@@ -1,11 +1,18 @@
 import datetime
-
 from django.db import models
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.core.mail import send_mail
+from django.db import models
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser
+from accounts.views import Cuser
 
 
 class Cat(models.Model):
     cat_id = models.AutoField(primary_key=True)
-    cat_name = models.CharField(max_length=45)
+    cat_name = models.CharField(max_length=45,null=False)
     cat_eye = models.CharField(max_length=45, blank=True, null=True)
     cat_hair = models.CharField(max_length=45, blank=True, null=True)
     cat_socks = models.CharField(max_length=45, blank=True, null=True)
@@ -24,34 +31,12 @@ class Cat(models.Model):
     updated_at = models.DateTimeField(blank=True, null=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
+
     class Meta:
         managed = False
         db_table = 'cat'
 
 
-
-
-class Cuser(models.Model):
-    uid = models.AutoField(primary_key=True)
-    uname = models.CharField(unique=True, max_length=45)
-    email = models.CharField(unique=True, max_length=45)
-    upassword = models.CharField(max_length=45)
-    phone = models.CharField(max_length=45, blank=True, null=True)
-    image = models.CharField(max_length=45, blank=True, null=True)
-    state = models.CharField(max_length=45, blank=True, null=True)
-    city = models.CharField(max_length=45, blank=True, null=True)
-    is_active = models.IntegerField()
-    is_admin = models.IntegerField()
-    is_superuser = models.IntegerField()
-    is_staff = models.IntegerField()
-    popup = models.IntegerField()
-    create_at = models.DateTimeField(default=datetime.datetime.now())
-    updated_at = models.DateTimeField(blank=True, null=True)
-    deleted_at = models.DateTimeField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'cuser'
 
 
 

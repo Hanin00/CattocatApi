@@ -7,7 +7,7 @@ from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 from django.http.response import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from .serializers import *
-from .models import Cat, Cuser, Pair, Plike, Post, Reply, Pair
+from .models import Cat, Pair, Plike, Post, Reply, Pair
 from rest_framework import generics
 
 
@@ -28,27 +28,6 @@ cat_detail = CatViewSet.as_view({
     'delete': 'destroy',
 })
 
-
-
-#  Cuser - User 상태 변경
-def Cuser_view(request):
-    cuser = Cuser.objects.all()
-    return render(request, 'index.html', {'cuser': cuser})
-
-class CuserViewSet(ModelViewSet):
-    queryset = Cuser.objects.all()
-    serializer_class = CuserSerializer
-
-cuser_list = CuserViewSet.as_view({
-    'get': 'list',
-    'post': 'create',
-})
-cuser_detail = CuserViewSet.as_view({
-    'get': 'retrieve',
-    'put': 'update',
-    'patch': 'partial_update',
-    'delete': 'destroy',
-})
 
 
 #  Pair - Pair 상태 변경
@@ -137,8 +116,27 @@ reply_detail = ReplyViewSet.as_view({
 })
 
 
+'''
 
+#  Cuser - User 상태 변경
+def Cuser_view(request):
+    cuser = Cuser.objects.all()
+    return render(request, 'index.html', {'cuser': cuser})
 
+class CuserViewSet(ModelViewSet):
+    queryset = Cuser.objects.all()
+    serializer_class = CuserSerializer
+
+cuser_list = CuserViewSet.as_view({
+    'get': 'list',
+    'post': 'create',
+})
+cuser_detail = CuserViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy',
+})'''
 
 
 '''

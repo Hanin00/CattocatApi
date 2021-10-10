@@ -77,17 +77,6 @@ class PerPariView(View):
 
         return JsonResponse({'content': list(pair)}, status=200)
 
-        # pair_data = Pair.objects.filter(user_id=request.user.uid)  # 단일 값 Pair table에서 uid 와 user_id 일치하도록
-
-        # pair = Pair.objects.filter(pair_id__in=pair_data).order_by('-create_at')  # 값 정렬
-        # pair_val = pair.values()
-
-        # rows = filter.values().order_by('-create_at', '-cat_id').distinct()
-    # rows = filter.values().order_by('-create_at','-cat_id').distinct()
-    # rows = filter.values().order_by('-cat_id')
-
-    # return JsonResponse({'content': list(pair_val)}, status=200)
-    # return JsonResponse({'content': list(rows)}, status=200)
 
 class MyCatView(View):
     @LoginConfirm
@@ -118,10 +107,6 @@ class MyCatView(View):
     def get(self, request):
         Cat_data = Cat.objects.filter(user_id=request.user.uid).values()
         return JsonResponse({'content': list(Cat_data)}, status=200)
-
-
-
-
 
 
 
@@ -164,23 +149,6 @@ pair_detail = PairViewSet.as_view({
 })
 
 
-'''#  Post - post 상태 변경
-class PostTotalViewSet(ModelViewSet):
-    queryset = Post.objects.all()
-    serializer_class = PosttotalSerializer
-
-
-post_tlist = PostTotalViewSet.as_view({
-    'get': 'list',
-    'post': 'create',
-})
-
-# put으로 수정작업
-post_tdetail = PostTotalViewSet.as_view({
-    'get': 'retrieve',
-    'put': 'update',
-})
-'''
 
 #  Post - post 상태 변경
 class PostViewSet(ModelViewSet):
@@ -198,6 +166,7 @@ post_detail = PostViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
 })
+
 
 
 # todo counting
@@ -235,58 +204,3 @@ reply_detail = ReplyViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
 })
-
-'''
-
-#  Cuser - User 상태 변경
-def Cuser_view(request):
-    cuser = Cuser.objects.all()
-    return render(request, 'index.html', {'cuser': cuser})
-
-class CuserViewSet(ModelViewSet):
-    queryset = Cuser.objects.all()
-    serializer_class = CuserSerializer
-
-cuser_list = CuserViewSet.as_view({
-    'get': 'list',
-    'post': 'create',
-})
-cuser_detail = CuserViewSet.as_view({
-    'get': 'retrieve',
-    'put': 'update',
-    'patch': 'partial_update',
-    'delete': 'destroy',
-})'''
-
-'''
-from django.db import connection
-
-
-def PostListView(request):
-    # books = Book.objects.all()
-    try:
-        cursor = connection.cursor()
-
-        strSql = "select Post.post_id, Post.user_id,Post.title, Post.content, Post.create_at as '게시글 작성일', Reply.create_at as '댓글 작성일' from Post join Reply on Post.post_id = Reply.post_id ;"
-        result = cursor.execute(strSql)
-        posts = cursor.fetchall()
-
-        connection.commit()
-        connection.close()
-
-        posts = []
-        for post in posts:
-            row = {'post_id': data[0],
-                   'user_id': data[1],
-                   'title': data[1],
-                   'content': data[2]},
-
-
-            books.append(row)
-
-    except:
-        connection.rollback()
-        print("Failed selecting in PostListView")
-
-
-    return render(request, 'post_list.html', {'posts': posts})'''

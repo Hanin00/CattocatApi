@@ -31,9 +31,6 @@ urlpatterns=[
     path('replydetail/<int:pk>/', views.reply_detail), #get : reply_id 해당 댓글 가져오기, #put 해당 댓글 수정
 
 
-
-
-
     #cat 등록 후 Pair로 연계 동작하게 구현할 것.
     #Deco 적용  pair,
     # Reply - deco

@@ -1,11 +1,11 @@
 from django.urls import path, include
 from . import views
-from .views import  CuserView, SignView
+from .views import  CuserView, SignUp,SignIn
 
 app_name = 'accounts'
 
 urlpatterns=[
     path('', CuserView.as_view()),
-    path('signup/',CuserView.as_view()),
-    path('signin/', SignView.as_view()),
+    path('signup/',SignUp.as_view()),
+    path('signin/', SignIn.as_view()),
 ]

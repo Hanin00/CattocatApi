@@ -35,6 +35,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    
+    
     'cats.apps.CatsConfig',
     'accounts',
     'rest_framework',
@@ -131,3 +134,19 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+import json
+from django.core.exceptions import ImproperlyConfigured
+
+with open("mysite/secret.json") as f:
+    secrets = json.loads(f.read())
+
+def get_secret(setting, secrets=secrets) :
+    try :
+        return secrets[setting]
+    except KeyError :
+        error_msg : f"Set the {setting} environment variable"
+        raise ImproperlyConfigured(error_msg)
+
+SECRET_KEY = get_secret("SECRET_KEY")

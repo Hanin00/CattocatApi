@@ -4,14 +4,56 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from .serializers import *
 from .models import Cat, Pair, Plike, Post, Reply, Pair
 from rest_framework import generics
 
+import json
+from accounts.views import LoginConfirm
 
 
+#로그인 데코레이터 적용v
+#Reply
+class ReplyView(View):
+    @LoginConfirm
+    def post(self, request):
+        data = json.loads(request.body)
+        Reply.objects.create(user_id = request.user.uid, post_id = data['post_id'] , content = data['content']).save()
+    #    Reply.objects.create(user_id = request.user.uid, post_id = data['post_id'] , content = data['content']).save()
+
+        return HttpResponse(status=200)
+
+    def get(self,request):
+        reply_data = Reply.objects.values()
+        return JsonResponse({'content' : list(reply_data)}, status = 200)
+
+#Pair
+class PairView(View):
+    @LoginConfirm
+    def post(self, request):
+        data = json.loads(request.body)
+        Pair.objects.create(user_id = request.user.uid, cat_id = data['cat_id'] ).save()
+
+        return HttpResponse(status=200)
+
+    def get(self,request):
+        pair_data = Pair.objects.values()
+        return JsonResponse({'content' : list(pair_data)}, status = 200)
+
+
+
+
+
+
+
+
+
+
+
+
+# 로그인 데코레이터 적용 X v
 class CatViewSet(ModelViewSet):
     queryset = Cat.objects.all()
     serializer_class = CatSerializer

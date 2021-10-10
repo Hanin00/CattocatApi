@@ -31,14 +31,13 @@ class CuserView(View):
 class SignIn(View):
     def post(self, request):
         data = json.loads(request.body)
-
         try:
             if Cuser.objects.filter(email=data['email']).exists():
                 user = Cuser.objects.get(email=data['email'])
 
-                if bcrypt.checkpw(data['upassword'].encode("UTF-8"), user.upassword.encode('UTF-8')):
+                if bcrypt.checkpw(data['upassword'].encode('utf-8'), user.upassword.encode('utf-8')):
                     token = jwt.encode({'uid': user.uid}, SECRET_KEY, algorithm='HS256')
-                   # token = jwt.encode({'uid': user.uid}, SECRET_KEY, algorithm='HS256').decode('UTF-8')
+                   # token = jwt.encode({'uid': user.uid}, SECRET_KEY, algorithm='HS256').decode('utf-8')
                     return JsonResponse({'message': "SUCCESS", "token": token}, status=200)
                 return HttpResponse(status=401)
             return HttpResponse(status=400)
@@ -57,9 +56,35 @@ class SignUp(View):
 
             Cuser.objects.create(
                 email=data['email'],
-                upassword=bcrypt.hashpw(data["upassword"].encode("UTF-8"), bcrypt.gensalt()).decode("UTF-8")
+                upassword=bcrypt.hashpw(data["upassword"].encode('utf-8'), bcrypt.gensalt())
+                #upassword=bcrypt.hashpw(data["upassword"].encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
             ).save()
 
             return JsonResponse({'message': "SUCCESS"}, status=200)
         except KeyError:
             return JsonResponse({'message': "INVALID_KEYS"}, status=400)
+
+
+#인증 데코레이터 class
+class LoginConfirm :
+    def __init__(self, original_function):
+        self.original_function = original_function
+
+    def __call__(self, request, *args, **kwargs):
+        token =  request.headers.get("JWTtoken", None)
+        try :
+            if token :
+                token_payload = jwt.decode(token, SECRET_KEY, algorithms="HS256")
+                user = Cuser.objects.get(uid=token_payload['uid'])
+                request.user = user
+                return self.original_function(self, request, *args, **kwargs)
+            return JsonResponse({'message':'NEED_LOGIN'},status=401)
+        except jwt.ExpiredSignatureError :
+            return JsonResponse({'message': 'EXPIRED_TOKEN'},status=401)
+
+        except jwt.DecodeError :
+            return JsonResponse({'message': 'INVALID_USER'},status=401)
+
+        except Cuser.DoesNotExist :
+            return JsonResponse({'message': 'INVALID_USER'},status=401)
+

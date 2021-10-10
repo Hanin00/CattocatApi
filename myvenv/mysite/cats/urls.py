@@ -1,5 +1,7 @@
 from django.urls import path, include
+from django.views import View
 from . import views
+from .views import  ReplyView
 
 app_name = 'cats'
 
@@ -30,6 +32,10 @@ urlpatterns=[
     path('totalreply/', views.reply_list),
     path('replydetail/<int:pk>/', views.reply_detail),
 
+    #cat 등록 후 Pair로 연계 동작하게 구현할 것.
+    #Deco 적용  pair,
+    # Reply - deco
+    path('reply/', ReplyView.as_view()),
 
 ]
 

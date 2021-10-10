@@ -7,19 +7,24 @@ from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from .serializers import *
-from .models import Cat, Pair, Plike, Post, Reply, Pair
+from .models import Cat,Cuser, Pair, Plike, Post, Reply, Pair
 from rest_framework import generics
+
 
 import json
 from accounts.views import LoginConfirm
 
-
-
-
-
-
-
 # 로그인 데코레이터 적용v
+
+# Cuser
+class CuserInfoView(View):
+    @LoginConfirm #get시 userId인 것만 모두 리턴(내 고양이)
+    def get(self, request):
+        userinfo_data = Cuser.objects.filter(uid=request.user.uid).values()
+        return JsonResponse({'content': list(userinfo_data)}, status=200)
+
+
+
 # Reply
 class ReplyView(View):
     @LoginConfirm
@@ -54,7 +59,7 @@ class personalPairView(View):
     def get(self, request):
         # follow 하는 고양이 id만 list로 출력
         # mfilter = Pair.objects.filter(user_id=request.user.uid).values_list('cat_id',flat=True).distinct()  # -> list로 받음 [2,1,3]
-        mfilter = Pair.objects.filter(user_id=request.user.uid).values('cat_id').distinct()  # {"cat_id":1}, {"cat_id":2}
+        mfilter = Pair.objects.filtefr(user_id=request.user.uid).values('cat_id').distinct()  # {"cat_id":1}, {"cat_id":2}
         return JsonResponse({'content': list(mfilter)}, status=200)
 
     @LoginConfirm
@@ -85,34 +90,34 @@ class PerPariView(View):
     # return JsonResponse({'content': list(rows)}, status=200)
 
 class MyCatView(View):
-    @LoginConfirm #등록 시 userId 같이 등록
+    @LoginConfirm
     def post(self, request):
         data = json.loads(request.body)
         Cat.objects.create(
             user_id=request.user.uid,
+            #user_id=data['user_id'],
             cat_name=data['cat_name'],
             cat_eye=data['cat_eye'],
             cat_hair=data['cat_hair'],
-            cat_socks=data['cat_name'],
-            cat_locate=data['cat_eye'],
-            cat_mom=data['cat_hair'],
-            cat_tnr=data['cat_name'],
-            cat_prefer=data['cat_eye'],
-            cat_special=data['cat_hair'],
+            cat_socks=data['cat_socks'],
+            cat_locate=data['cat_locate'],
+            cat_mom=data['cat_mom'],
+            cat_tnr=data['cat_tnr'],
+            cat_prefer=data['cat_prefer'],
+            cat_special=data['cat_special'],
             cat_prof_img=data['cat_prof_img'],
-            cat_image=data['cat_hair'],
+            cat_image=data['cat_image'],
             cat_xlocation=data['cat_xlocation'],
-            cat_ylocation=data['cat_ylocation']
+            cat_ylocation=data['cat_ylocation'],
         )
 
-        return JsonResponse({'user_id': user_id}, status=200)
-    
+        return JsonResponse({'user_id': request.user.uid }, status=200)
+
+
     @LoginConfirm #get시 userId인 것만 모두 리턴(내 고양이) 
     def get(self, request):
         Cat_data = Cat.objects.filter(user_id=request.user.uid).values()
-        return JsonResponse({'mycat': list(Cat_data)}, status=200)
-
-
+        return JsonResponse({'content': list(Cat_data)}, status=200)
 
 
 
@@ -159,7 +164,7 @@ pair_detail = PairViewSet.as_view({
 })
 
 
-#  Post - post 상태 변경
+'''#  Post - post 상태 변경
 class PostTotalViewSet(ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PosttotalSerializer
@@ -175,7 +180,7 @@ post_tdetail = PostTotalViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
 })
-
+'''
 
 #  Post - post 상태 변경
 class PostViewSet(ModelViewSet):

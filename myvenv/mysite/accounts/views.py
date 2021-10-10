@@ -38,11 +38,11 @@ class SignIn(View):
                 if bcrypt.checkpw(data['upassword'].encode('UTF-8'), user.upassword.encode('UTF-8')):
                     token = jwt.encode({'uid': user.uid}, SECRET_KEY, algorithm='HS256')
 
-                    return JsonResponse({"token" : token}, status=200)
+                    return JsonResponse({"uid":user.uid,"token" : token}, status=200)
 
-                return HttpResponse(status=401)
+                return JsonResponse({'message': "PASSWORD_ERROR"}, status=401)
 
-            return HttpResponse(status=400)
+            return JsonResponse({'message': "NOT_EXIST"}, status=402)
 
         except KeyError:
             return JsonResponse({'message': "INVALID_KEYS"}, status=400)
@@ -64,6 +64,9 @@ class SignUp(View):
             return JsonResponse({'message': "SUCCESS"}, status=200)
         except KeyError:
             return JsonResponse({'message': "INVALID_KEYS"}, status=400)
+
+
+
 
 
 #인증 데코레이터 class

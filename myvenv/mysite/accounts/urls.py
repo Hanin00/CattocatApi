@@ -7,5 +7,5 @@ app_name = 'accounts'
 urlpatterns=[
     path('', CuserView.as_view()),
     path('signup/',SignUp.as_view()),
-    path('signin/', SignIn.as_view()),
+    path('signin/',SignIn.as_view()),
 ]

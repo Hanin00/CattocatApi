@@ -32,14 +32,16 @@ class SignIn(View):
     def post(self, request):
         data = json.loads(request.body)
         try:
-            if Cuser.objects.filter(email=data['email']).exists():
-                user = Cuser.objects.get(email=data['email'])
+            if Cuser.objects.filter(email=data["email"]).exists():
+                user = Cuser.objects.get(email=data["email"])
 
-                if bcrypt.checkpw(data['upassword'].encode('utf-8'), user.upassword.encode('utf-8')):
+                if bcrypt.checkpw(data['upassword'].encode('UTF-8'), user.upassword.encode('UTF-8')):
                     token = jwt.encode({'uid': user.uid}, SECRET_KEY, algorithm='HS256')
-                   # token = jwt.encode({'uid': user.uid}, SECRET_KEY, algorithm='HS256').decode('utf-8')
-                    return JsonResponse({'message': "SUCCESS", "token": token}, status=200)
+
+                    return JsonResponse({"token" : token}, status=200)
+
                 return HttpResponse(status=401)
+
             return HttpResponse(status=400)
 
         except KeyError:
@@ -56,8 +58,7 @@ class SignUp(View):
 
             Cuser.objects.create(
                 email=data['email'],
-                upassword=bcrypt.hashpw(data["upassword"].encode('utf-8'), bcrypt.gensalt())
-                #upassword=bcrypt.hashpw(data["upassword"].encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+                upassword=bcrypt.hashpw(data["upassword"].encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
             ).save()
 
             return JsonResponse({'message': "SUCCESS"}, status=200)

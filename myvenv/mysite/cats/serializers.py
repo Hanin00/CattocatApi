@@ -43,6 +43,7 @@ class CatSerializer(serializers.ModelSerializer):
             , 'cat_ylocation', 'is_active']
 
     cat_id = serializers.IntegerField()
+    user_id = serializers.IntegerField()
     cat_name = serializers.CharField(max_length=45)
     cat_eye = serializers.CharField(max_length=45, allow_blank=True, allow_null=True)
     cat_hair = serializers.CharField(max_length=45, allow_blank=True, allow_null=True)

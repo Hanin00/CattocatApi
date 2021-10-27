@@ -7,9 +7,6 @@ from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 
-
-
-
 from .serializers import *
 from .models import Cat,Cuser, Pair, Plike, Post, Reply, Pair
 from rest_framework import generics
@@ -107,12 +104,23 @@ class MyCatView(View):
         return JsonResponse({'user_id': request.user.uid }, status=200)
 
 
-    @LoginConfirm #get시 userId인 것만 모두 리턴(내 고양이) 
+    @LoginConfirm #get시 userId인 것만 모두 리턴(내 고양이)
     def get(self, request):
         Cat_data = Cat.objects.filter(user_id=request.user.uid).values()
         return JsonResponse({'content': list(Cat_data)}, status=200)
 
 
+
+# 로그인 데코레이터 적용 X v
+#모든 Cat 조회, 중복 제거 후 marker 찍을 때 써야함
+class CatTotalViewSet(ModelViewSet):
+    queryset = Cat.objects.all()
+    serializer_class = CattotalSerializer
+
+cat_totallist = CatTotalViewSet.as_view({
+    'get': 'list',
+    'post': 'create',
+})
 
 
 # 로그인 데코레이터 적용 X v
@@ -138,7 +146,6 @@ cat_detail = CatViewSet.as_view({
 class PairViewSet(ModelViewSet):
     queryset = Pair.objects.all()
     serializer_class = PairSerializer
-
 
 
 pair_list = PairViewSet.as_view({

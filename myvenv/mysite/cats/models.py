@@ -27,14 +27,14 @@ class Cat(models.Model):
     cat_xlocation = models.CharField(max_length=200, blank=True, null=True)
     cat_ylocation = models.CharField(max_length=200, blank=True, null=True)
     is_active = models.IntegerField(default=1)
-    create_at = models.DateTimeField(default=datetime.datetime.now())
-    updated_at = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
 
     class Meta:
         managed = False
-        db_table = 'cat'
+        db_table = 'Cat'
 
 
 
@@ -45,13 +45,13 @@ class Pair(models.Model):
     user_id = models.IntegerField()
     cat_id = models.IntegerField()
     is_active = models.IntegerField(default=1)
-    create_at = models.DateTimeField(default=datetime.datetime.now())
-    updated_at = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'pair'
+        db_table = 'Pair'
 
 
 
@@ -63,13 +63,13 @@ class Post(models.Model):
     content = models.TextField()
     image = models.TextField(blank=True, null=False)
     is_active = models.IntegerField(default=1)
-    create_at = models.DateTimeField(default=datetime.datetime.now())
-    updated_at = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'post'
+        db_table = 'Post'
 
 
 class Plike(models.Model):
@@ -77,13 +77,13 @@ class Plike(models.Model):
     user_id = models.IntegerField()
     post_id = models.IntegerField()
     is_active = models.IntegerField(default=1)
-    create_at = models.DateTimeField(default=datetime.datetime.now())
-    updated_at = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'plike'
+        db_table = 'pLike'
 
 #user 값 제외하면 단순히 id(Int) 값만 넣고 나중에 찾아서 보이면 됨
 class Reply(models.Model):
@@ -93,10 +93,10 @@ class Reply(models.Model):
     post_id = models.IntegerField()
     content = models.TextField()
     is_active = models.IntegerField(default=1)
-    create_at = models.DateTimeField(default=datetime.datetime.now())
-    updated_at = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'reply'
+        db_table = 'Reply'

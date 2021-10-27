@@ -14,11 +14,10 @@ class CattotalSerializer(serializers.ModelSerializer):
 class CatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cat
-        fields = ['cat_id','user_id','cat_name', 'cat_eye', 'cat_hair', 'cat_socks', 'cat_locate', 'cat_mom', 'cat_tnr'
+        fields = ['user_id','cat_name', 'cat_eye', 'cat_hair', 'cat_socks', 'cat_locate', 'cat_mom', 'cat_tnr'
             , 'cat_prefer', 'cat_special',  'cat_prof_img', 'cat_image', 'cat_xlocation'
             , 'cat_ylocation', 'is_active']
 
-    cat_id = serializers.IntegerField()
     user_id = serializers.IntegerField()
     cat_name = serializers.CharField(max_length=45)
     cat_eye = serializers.CharField(max_length=45, allow_blank=True, allow_null=True)
@@ -46,10 +45,10 @@ class CatSerializer(serializers.ModelSerializer):
 class CuserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cuser
-        fields = ['uid','uname', 'email', 'phone',
+        fields = ['uname', 'email', 'phone',
                   'image', 'state', 'city', 'popup']
 
-    uid = serializers.IntegerField()
+
     uname = serializers.CharField(max_length=45)
     email = serializers.CharField(max_length=45)
     phone = serializers.CharField(max_length=45)
@@ -64,8 +63,8 @@ class CuserSerializer(serializers.ModelSerializer):
 class PairSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pair
-        fields = ['pair_id','user_id', 'cat_id', 'is_active']
-        pair_id = serializers.IntegerField()
+        fields = ['user_id', 'cat_id', 'is_active']
+
         user = serializers.IntegerField()
         cat = serializers.IntegerField()
         is_active = serializers.IntegerField(default=1)
@@ -82,9 +81,8 @@ class PosttotalSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ['post_id','user_id', 'title', 'content', 'image', 'is_active']
+        fields = ['user_id', 'title', 'content', 'image', 'is_active']
 
-        post_id = serializers.IntegerField()
         user = serializers.IntegerField()
         title = serializers.CharField(max_length=45)
         content = serializers.CharField()
@@ -96,8 +94,8 @@ class PostSerializer(serializers.ModelSerializer):
 class PlikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plike
-        fields = ['like_id','user_id', 'post_id', 'is_active']
-        like_id = serializers.IntegerField()
+        fields = ['user_id', 'post_id', 'is_active']
+
         user = serializers.IntegerField()
         post = serializers.IntegerField()
         is_active = serializers.IntegerField(default=1)
@@ -107,9 +105,8 @@ class PlikeSerializer(serializers.ModelSerializer):
 class ReplySerializer(serializers.ModelSerializer):
     class Meta:
         model = Reply
-        fields = ['reply_id','user_id', 'post_id', 'content','is_active']
+        fields = ['user_id', 'post_id', 'content','is_active']
 
-        reply_id = serializers.IntegerField()
         user = serializers.IntegerField()
         post = serializers.IntegerField()
         content = serializers.CharField()

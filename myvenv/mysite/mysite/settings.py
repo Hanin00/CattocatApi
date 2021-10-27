@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-yh@ex_$($d-=nn0m68lvjfb8+(_0b*c2v9%!5bss!hyo&#_!8s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', 'haeunLee.pythonanywhere.com']
 
 # Application definition
 
@@ -35,9 +35,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    
-    
+
+
+
     'cats.apps.CatsConfig',
     'accounts',
     'rest_framework',
@@ -79,19 +79,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        # django db를 mysql로 사용하겠음
-        'ENGINE': 'django.db.backends.mysql',
-        # DB 이름 지어주기
-        'NAME': 'Cats',
-        # 사용자 유저 계정 생성 후 입력하기
-        'USER': 'admin',
-        # 사용자 비밀번호 생성 후 입력하기
-        'PASSWORD': 'admin',
-        # default host인 localhost
-        'HOST': 'localhost',
-        # MySQL default 포트 번호
-        'PORT': '3306',
-    }
+    	'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'haeunLee$catapi',
+        'USER': 'haeunLee',
+        'PASSWORD': 'useruser',
+        'HOST': 'haeunLee.mysql.pythonanywhere-services.com',
+        }
 }
 
 # Password validation
@@ -136,17 +129,17 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-import json
-from django.core.exceptions import ImproperlyConfigured
+#import json
+#from django.core.exceptions import ImproperlyConfigured
 
-with open("mysite/secret.json") as f:
-    secrets = json.loads(f.read())
+#with open("mysite/secret.json") as f:
+#    secrets = json.loads(f.read())
 
-def get_secret(setting, secrets=secrets) :
-    try :
-        return secrets[setting]
-    except KeyError :
-        error_msg : f"Set the {setting} environment variable"
-        raise ImproperlyConfigured(error_msg)
+#def get_secret(setting, secrets=secrets) :
+#    try :
+#        return secrets[setting]
+#    except KeyError :
+#        error_msg : f"Set the {setting} environment variable"
+#        raise ImproperlyConfigured(error_msg)
 
-SECRET_KEY = get_secret("SECRET_KEY")
+#SECRET_KEY = get_secret("SECRET_KEY")

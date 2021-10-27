@@ -8,7 +8,9 @@ app_name = 'cats'
 urlpatterns=[
    # path('', views.cat_view, name = 'index')
     # cat
-    path('totalcat/', views.cat_list),
+
+    path('totalcat/', views.cat_totallist),
+    path('postcat/', views.cat_list),
     path('catdetail/<int:pk>/',views.cat_detail),
 
     # pair

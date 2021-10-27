@@ -49,9 +49,6 @@ urlpatterns=[
     #user가 만든 like - post_id -> 일단 XX join 해야함
 
 
-
-
-
     #cat 등록 시 cat_id return 으로 받아야함.
 
 ]

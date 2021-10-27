@@ -5,7 +5,11 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 from django.http.response import HttpResponse, JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, render
+
+
+
+
 from .serializers import *
 from .models import Cat,Cuser, Pair, Plike, Post, Reply, Pair
 from rest_framework import generics
@@ -59,7 +63,7 @@ class personalPairView(View):
     def get(self, request):
         # follow 하는 고양이 id만 list로 출력
         # mfilter = Pair.objects.filter(user_id=request.user.uid).values_list('cat_id',flat=True).distinct()  # -> list로 받음 [2,1,3]
-        mfilter = Pair.objects.filtefr(user_id=request.user.uid).values('cat_id').distinct()  # {"cat_id":1}, {"cat_id":2}
+        mfilter = Pair.objects.filter(user_id=request.user.uid).values('cat_id').distinct()  # {"cat_id":1}, {"cat_id":2}
         return JsonResponse({'content': list(mfilter)}, status=200)
 
     @LoginConfirm

@@ -215,3 +215,27 @@ reply_detail = ReplyViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
 })
+
+# post에 reply 등록, pli
+class PidReplyView(View):
+    def post(self, request):
+        data = json.loads(request.body)
+        reply = Reply.objects.create()
+        replylist = Reply.object.create(user_id=data['user_id'], post_id=data['post_id']
+                                        ,content=data['content']).values().count
+        return JsonResponse({'post_id': post_id, 'content': list(replylist)}, status=200)
+
+#pid로(포스팅별) 댓글 찾기
+    def get(self, request):
+        post_id = request.GET['post_id']
+        replylist = Reply.object.filter(post_id=post_id).values()
+        return JsonResponse({'post_id': post_id, 'content': list(replylist)}, status=200)
+
+
+class PidLikeView(View):
+    def get(self, request):
+        user_id = request.GET['user_id']
+        replylist = Plike.object.filter(user_id=data['user_id']).values().count
+
+        return JsonResponse({'post_id': post_id, 'content': list(replylist)}, status=200)
+

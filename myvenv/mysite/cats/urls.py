@@ -26,11 +26,17 @@ urlpatterns=[
 
     # plike
     path('totalplike/', views.plike_list),
-    path('plikedetail/<int:pk>/', views.plike_detail),
+    path('plikedetail/<int:pk>/', views.plike_detail), # 개별  like  수정
+     #포스트에 대한 like 여부
+
+
+
 
     # Reply
     path('totalreply/', views.reply_list),  # get : 모든 댓글 / post : "user_id": "2","post_id": "3","content": "4시 되면 갈거야"
     path('replydetail/<int:pk>/', views.reply_detail), #get : reply_id 해당 댓글 가져오기, #put 해당 댓글 수정
+    path('pidreply/', PidReplyView.as_view()), #get : post 별 댓글 가져오기, #post : post 별 댓글 달기
+
 
 
     #cat 등록 후 Pair로 연계 동작하게 구현할 것.

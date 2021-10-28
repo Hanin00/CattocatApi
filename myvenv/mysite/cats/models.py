@@ -85,6 +85,13 @@ class Plike(models.Model):
         managed = False
         db_table = 'pLike'
 
+
+
+
+
+
+
+
 #user 값 제외하면 단순히 id(Int) 값만 넣고 나중에 찾아서 보이면 됨
 class Reply(models.Model):
     reply_id = models.AutoField(primary_key=True)
@@ -100,3 +107,4 @@ class Reply(models.Model):
     class Meta:
         managed = False
         db_table = 'Reply'
+

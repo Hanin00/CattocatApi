@@ -23,12 +23,11 @@ urlpatterns=[
     # 단일 게시글 수정,
     path('postdetail/<int:pk>/', views.post_detail),   #등록시 sPref 의 user_id  보내기
 
-
     # plike
-    path('totalplike/', views.plike_list),
-    path('plikedetail/<int:pk>/', views.plike_detail), # 개별  like  수정
-    path('plikecnt/', PidLikeView.as_view()), # user가 선택한 like 내용(post_id)
-     #포스트에 대한 like 여부
+    path('ulikepost/', userLikePostView.as_view()),   #user가 좋아한 글 목록 - get / user_id
+    path('postulike/', views.postulike),   #post - user가 하트 누른거 추가
+   # path('putulike/', views.postulike),    #put - user 하트 상태 변경 plike_id
+    path('putulike/', modifyLikePostView.as_view()),    #put - user 하트 상태 변경 plike_id
 
 
 
@@ -37,6 +36,31 @@ urlpatterns=[
     path('totalreply/', views.reply_list),  # get : 모든 댓글 / post : "user_id": "2","post_id": "3","content": "4시 되면 갈거야"
     path('replydetail/<int:pk>/', views.reply_detail), #get : reply_id 해당 댓글 가져오기, #put 해당 댓글 수정
     path('pidreply/', PidReplyView.as_view()), #get : post 별 댓글 가져오기, #post : post 별 댓글 달기
+
+
+
+
+
+    #notice
+    path('notice/', NoticeView.as_view()),  # get : 모든 공지사항
+    path('noticecnt/', NoticeContentView.as_view()),  # get : notice_id  필터링해서 내용만 보냄
+
+    # info
+    path('info/', InfoView.as_view()),  # get : 모든 상식 정보
+    path('infocnt/', InfoContentView.as_view()),  # get : info_id  필터링해서 내용만 보냄
+
+#home
+    path('home/', HomeView.as_view()),  # get : best 게시글
+#board
+    path('post/', PostView.as_view()),  # get : 전체 글 목록 + 해당 포스트에 맞는 userinfo
+
+
+
+
+
+
+
+
 
 
 

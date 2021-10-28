@@ -24,3 +24,5 @@ class Cuser(models.Model):
 
     class Meta:
         db_table = 'cuser'
+
+

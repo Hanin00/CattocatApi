@@ -37,6 +37,18 @@ class Cat(models.Model):
         db_table = 'Cat'
 
 
+class CatImage(models.Model):
+    catimg_id = models.AutoField(primary_key=True)
+    cat_id = models.IntegerField()
+    user_id = models.IntegerField()
+    cat_image = models.CharField(max_length=400)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    deleted_at = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'CatImage'
 
 
 
@@ -52,7 +64,6 @@ class Pair(models.Model):
     class Meta:
         managed = False
         db_table = 'Pair'
-
 
 
 
@@ -87,11 +98,6 @@ class Plike(models.Model):
 
 
 
-
-
-
-
-
 #user 값 제외하면 단순히 id(Int) 값만 넣고 나중에 찾아서 보이면 됨
 class Reply(models.Model):
     reply_id = models.AutoField(primary_key=True)
@@ -108,3 +114,33 @@ class Reply(models.Model):
         managed = False
         db_table = 'Reply'
 
+
+
+#고양이 상식, 정보
+class Info(models.Model):
+    info_id = models.AutoField(primary_key=True)
+    title = models.TextField()
+    content = models.TextField()
+    banner_image = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    deleted_at = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'Info'
+
+
+#공지사항
+class Notice(models.Model):
+    notice_id = models.AutoField(primary_key=True)
+    title = models.TextField()
+    content = models.TextField()
+    banner_image = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    deleted_at = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'Notice'

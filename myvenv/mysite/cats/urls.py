@@ -27,6 +27,7 @@ urlpatterns=[
     # plike
     path('totalplike/', views.plike_list),
     path('plikedetail/<int:pk>/', views.plike_detail), # 개별  like  수정
+    path('plikecnt/', PidLikeView.as_view()), # user가 선택한 like 내용(post_id)
      #포스트에 대한 like 여부
 
 
@@ -51,8 +52,6 @@ urlpatterns=[
     #user의 댓글 모으기
 
     #user 작성 포스팅
-
-
 
     #user가 만든 like - post_id -> 일단 XX join 해야함
 

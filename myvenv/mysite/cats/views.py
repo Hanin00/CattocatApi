@@ -235,7 +235,11 @@ class PidReplyView(View):
 class PidLikeView(View):
     def get(self, request):
         user_id = request.GET['user_id']
-        replylist = Plike.object.filter(user_id=data['user_id']).values().count
+        replylist = Plike.object.filter(user_id=data['user_id']).values()
 
-        return JsonResponse({'post_id': post_id, 'content': list(replylist)}, status=200)
+        return JsonResponse({'post_id': post_id, 'content': list(replylist) }, status=200)
 
+
+
+# 고양이 등록 화면에 필요한 것 - 고양이 등록,
+class

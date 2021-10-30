@@ -53,12 +53,9 @@ urlpatterns=[
     path('home/', HomeView.as_view()),  # get : best 게시글
 #board
     path('post/', PostView.as_view()),  # get : 전체 글 목록 + 해당 포스트에 맞는 userinfo
+
 #singlepost
     path('postsingle/', PostRpView.as_view()),  #get : post, reply  내용, 리스트 불러옴, post : reply 전송
-
-
-
-
 
 
 

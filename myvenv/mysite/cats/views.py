@@ -239,8 +239,6 @@ reply_detail = ReplyViewSet.as_view({
 })
 
 
-
-
 # post에 reply 등록, pli
 class PidReplyView(View):
     def post(self, request):
@@ -255,10 +253,6 @@ class PidReplyView(View):
         post_id = request.GET['post_id']
         replylist = Reply.objects.filter(post_id=post_id).values()
         return JsonResponse({'post_id': post_id, 'content': list(replylist)}, status=200)
-
-
-
-
 
 
 
@@ -284,12 +278,6 @@ class userLikePostView(View):
         user_id = request.GET['user_id']
         pLikelist = Plike.objects.filter(user_id=user_id).values()
         return JsonResponse({'user_id': user_id, 'content': list(pLikelist)}, status=200)
-
-
-
-
-
-
 
 
 #공지사항
@@ -335,8 +323,6 @@ class HomeView(View):
 class PostView(View):
     def get(self, request):
         postlist = Post.objects.all().values().order_by('-created_at') #user 와 join
-        #userinfo = Cuser.objects.filter(uid=user_id).values('uname','city','image').values()
-        return JsonResponse({'postlist': list(postlist)}, status=200)
 
 
 #단일 게시글 조회 화면
@@ -365,7 +351,6 @@ class PostRpView(View):
 
 
 
-
 # 고양이 등록 화면에 필요한 것 - 고양이 등록,
 
 
@@ -379,5 +364,8 @@ class PostRpView(View):
 
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> ff09fe6abca6cc358b5170ccec39149c8c47dc07

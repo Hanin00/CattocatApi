@@ -51,7 +51,6 @@ class SignIn(View):
 class SignUp(View):
     def post(self, request):
         data = json.loads(request.body)
-
         try:
             if Cuser.objects.filter(email=data['email']).exists():
                 return JsonResponse({'message': "EXISTS_EMAIL"}, status=400)

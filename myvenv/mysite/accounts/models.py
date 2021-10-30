@@ -18,9 +18,9 @@ class Cuser(models.Model):
     is_superuser = models.IntegerField(default=0)
     is_staff = models.IntegerField(default=0)
     popup = models.IntegerField(default=0)
-    create_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
 
     class Meta:
-        db_table = 'cuser'
+        db_table = 'Cuser'

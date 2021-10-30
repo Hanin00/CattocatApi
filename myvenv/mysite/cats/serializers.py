@@ -3,6 +3,7 @@ from .models import Cat, Cuser, Pair, Plike, Post, Reply
 from rest_framework import serializers
 from rest_framework.settings import api_settings
 import time
+from django.db.models import Count
 
 class CattotalSerializer(serializers.ModelSerializer):
     class Meta:
@@ -91,7 +92,14 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 #  Plike - Plike 게시글 좋아요
+#  Plike - Plike 게시글 좋아요
 class PlikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Plike
+        fields = '__all__'
+        is_active = serializers.IntegerField(default=1)
+
+class PliketotalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plike
         fields = ['user_id', 'post_id', 'is_active']
